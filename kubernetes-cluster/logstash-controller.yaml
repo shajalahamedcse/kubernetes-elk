@@ -25,15 +25,15 @@ spec:
               value: "true"
           ports:
             - containerPort: 5043
-              name: lumberjack
-              protocol: TCP
-          volumeMounts:
-            - mountPath: /certs
-              name: certs
-      volumes:
-        - emptyDir:
-            medium: ""
-          name: "storage"
-        - hostPath:
-            path: "/tmp"
-          name: "certs"
+          #    name: lumberjack
+          #    protocol: TCP
+        #  volumeMounts:
+        #    - mountPath: /certs
+        #      name: certs
+    #  volumes:
+    #    - emptyDir:
+    #        medium: ""
+      #    name: "storage"
+      #  - hostPath:
+      #      path: "/tmp"
+      #    name: "certs"
