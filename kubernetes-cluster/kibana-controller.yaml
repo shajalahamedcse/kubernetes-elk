@@ -20,7 +20,7 @@ spec:
 
       containers:
         - name: kibana
-          image: shajalahamed/docker-kibana
+          image: shajalahamedcse/docker-kibana
           env:
             - name: KIBANA_ES_URL
               value: "http://elasticsearch.default.svc.cluster.local:9200"
