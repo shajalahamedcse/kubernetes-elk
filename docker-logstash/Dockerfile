@@ -7,6 +7,7 @@ ENV LOGSTASH_PKG_NAME logstash-5.1.2
 # Install Logstash
 
 RUN apk add --update curl bash ca-certificates
+RUN mkdir -p /logstash/config
 RUN \
   ( curl -Lskj https://artifacts.elastic.co/downloads/logstash/$LOGSTASH_PKG_NAME.tar.gz | \
   gunzip -c - | tar xf - ) && \
