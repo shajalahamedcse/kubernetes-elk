@@ -1,4 +1,4 @@
-FROM alpine:3.9
+FROM alpine
 MAINTAINER shajalahamedcse@gmail.com
 
 ENV JAVA_HOME=/usr/lib/jvm/default-jvm/jre
