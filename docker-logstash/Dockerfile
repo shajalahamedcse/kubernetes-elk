@@ -4,25 +4,22 @@ MAINTAINER shajalahamedcse@gmail.com
 
 ENV LOGSTASH_PKG_NAME logstash-5.1.2
 
-# Install Logstash
 
 RUN apk add --update curl bash ca-certificates
-RUN mkdir -p /logstash/config
-RUN \
-  ( curl -Lskj https://artifacts.elastic.co/downloads/logstash/$LOGSTASH_PKG_NAME.tar.gz | \
-  gunzip -c - | tar xf - ) && \
-  mv $LOGSTASH_PKG_NAME /logstash && \
-  rm -rf $(find /logstash | egrep "(\.(exe|bat)$|sigar/.*(dll|winnt|x86-linux|solaris|ia64|freebsd|macosx))") && \
-  apk del curl wget
 
 
+# Install Logstash
+RUN cd /
+RUN curl -Ls -o $LOGSTASH_PKG_NAME.tar.gz https://artifacts.elastic.co/downloads/logstash/$LOGSTASH_PKG_NAME.tar.gz
+RUN tar zxf $LOGSTASH_PKG_NAME.tar.gz
+RUN mv $LOGSTASH_PKG_NAME /logstash
+RUN rm -f $LOGSTASH_PKG_NAME.tar.gz
 
-# Logstash config
-VOLUME ["/logstash/config"]
+ # Logstash config
+ADD ./config/logstash.conf /logstash/conf/logstash.conf
 
+ # Certificates for logstash-forwarders
+#ADD certs/logstash-forwarder.crt /logstash/certs/logstash-forwarder.crt
+#ADD certs/logstash-forwarder.key /logstash/certs/logstash-forwarder.key
 
-# Optional certificates folder
-VOLUME ["/logstash/certs"]
-
-
-CMD ["/logstash/bin/logstash", "--quiet",  "-f", "/logstash/config/logstash.conf"]
+CMD ["/logstash/bin/logstash", "-f", "/conf/logstash.conf"]
